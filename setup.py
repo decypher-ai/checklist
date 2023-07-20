@@ -28,14 +28,6 @@ setup(name='checklist',
         'patternfork-nosql',
         'iso-639'
       ],
-      cmdclass={
-        'develop': PostDevelopCommand,
-        'install': PostInstallCommand,
-        'bdist_egg': BdistEggCommand,
-        'egg_info': EggInfoCommand,
-        'build_py': BuildPyCommand,
-
-     },
       package_data={'viewer':['static/*'], "data": ["*"], 'checklist': ['data/*', 'data/lexicons/*', 'viewer/static/*']},
       #include_package_data=True,
       zip_safe=False
