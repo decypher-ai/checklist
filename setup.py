@@ -8,50 +8,7 @@ from setuptools.command.build_py import build_py
 from subprocess import check_call
 import sys
 import os
-def enable_visual_interface():
-    check_call(f'"{sys.executable}"'+" -m pip install jupyter", shell=True)
-    import notebook
-    notebook.nbextensions.install_nbextension_python(
-        "checklist.viewer", user=True, overwrite=True)
-    notebook.nbextensions.enable_nbextension_python(
-        "checklist.viewer")
 
-def enable_visual_interface_shell_cmd(direction):
-    sys.path.append(direction)
-    enable_visual_interface()
-    #"""
-
-class PostDevelopCommand(develop):
-    """Pre-installation for development mode."""
-    def run(self):
-        develop.run(self)
-        #enable_visual_interface()
-        self.execute(enable_visual_interface_shell_cmd, (self.install_lib,), msg="Running post install task")
-
-class BdistEggCommand(bdist_egg):
-    def run(self):
-        bdist_egg.run(self)
-        enable_visual_interface()
-        #self.execute(enable_visual_interface_shell_cmd, (self.install_lib,), msg=f"Running post install task on {sys.executable}")
-
-class BuildPyCommand(build_py):
-    def run(self):
-        build_py.run(self)
-        enable_visual_interface()
-        #self.execute(enable_visual_interface_shell_cmd, (self.install_lib,), msg="Running post install task")
-
-class PostInstallCommand(install):
-    def run(self):
-        #super().do_egg_install()
-        install.run(self)
-        self.execute(enable_visual_interface_shell_cmd, (self.install_lib,), msg="Running post install task")
-        #enable_visual_interface()
-
-class EggInfoCommand(egg_info):
-    def run(self):
-        egg_info.run(self)
-        enable_visual_interface()
-        #self.execute(enable_visual_interface_shell_cmd, (self.install_lib,), msg="Running post install task")
 
 setup(name='checklist',
       version='0.0.11',
